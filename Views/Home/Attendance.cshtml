@@ -1,0 +1,146 @@
+﻿@model test_Data.Models.ChildModel
+@{
+    ViewData["Title"] = "Child";
+}
+<style>
+    body {
+        background-color: white;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .Form {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+    }
+
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+    .btn-primary {
+        width: 100%;
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 1rem;
+        background-color: #007bff;
+        border: none;
+        color: #fff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .table-dark {
+        margin-top: 20px;
+        background-color: rgba(0, 0, 0, 0.75);
+        color: white;
+    }
+
+        .table-dark th,
+        .table-dark td {
+            text-align: center;
+        }
+
+    .btn-outline-danger {
+        border: 1px solid #dc3545;
+        color: #dc3545;
+    }
+
+        .btn-outline-danger:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+
+    .head-bar {
+        background-color: #2248F0;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        font-weight: bold; /* Make text bold */
+        position: fixed; /* Fix the position */
+        top: 0; /* Position at the top */
+        left: 0; /* Align to the left */
+        right: 0; /* Align to the right */
+        z-index: 1000; /* Ensure it stays above other content */
+    }
+</style>
+
+<body>
+    <div class="head-bar">
+        Attendance Records
+    </div>
+   <br />
+   <br />
+    <br />
+
+
+    <div class="container">
+        @if (ViewBag.users != null && ViewBag.users.Count >= 1)
+        {
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                      
+                        <th scope="col">Name</th>
+                        <th scope="col">Surname</th>
+                        <th scope="col">TimeIn</th>
+                        <th scope="col">TimeOut</th>
+                        <th scope="col">DateScan</th>
+                        <th scope="col">FormClass</th>
+                        <th scope="col">Present</th>
+                      
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var kinders in ViewBag.users)
+                    {
+                        <tr>
+                            <td>@kinders.sName</td>
+                            <td>@kinders.sSurname</td>
+                            <td>@kinders.TimeIn</td>
+                            <td>@kinders.TimeOut</td>
+                            <td>@kinders.DateScan</td>
+                            <td>@kinders.sFormClass</td>
+                            <td>@kinders.Present</td>
+                            
+                          
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+          <div class="container mt-3">
+                <form asp-action="ClearRecords" asp-controller="Home" method="post">
+                    <button type="submit" onclick="onsuccess()" class="btn btn-danger">Clear Attendance Records</button>
+                </form>
+            </div>
+    </div>
+    <script>
+        function onsuccess() { 
+            alert('Records Have Been Cleared');
+        }
+    </script>
+</body>

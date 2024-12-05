@@ -1,0 +1,164 @@
+﻿@model test_Data.Models.ChildModel
+@{
+    ViewData["Title"] = "Child";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width-device-width, initial scale=1.0">
+    <title>QR Code scanner</title>
+    <style>
+        body {
+            background-color: #f4f4f9;
+            font-family: Arial, sans-serif;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full viewport height */
+            margin: 0; /* Remove default margin */
+        }
+
+        /* Container styling */
+        .container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Button styling */
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            background-color: #007bff;
+            transition: background-color 0.3s ease; /* Smooth hover transition */
+        }
+
+            button:hover {
+                background-color: #0056b3; /* Darker shade on hover */
+            }
+
+        /* Form container */
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 15px; /* Spacing between elements */
+        }
+
+        /* Input field styling */
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+            input:focus {
+                border-color: #007bff;
+                outline: none;
+                box-shadow: 0 0 8px rgba(0, 123, 255, 0.2); /* Subtle glow on focus */
+            }
+
+        .head-bar {
+            background-color: #2248F0;
+            color: white;
+            text-align: center;
+            padding: 18px;
+            font-weight: bold; /* Make text bold */
+            position: fixed; /* Fix the position */
+            top: 0; /* Position at the top */
+            left: 0; /* Align to the left */
+            right: 0; /* Align to the right */
+            z-index: 1000; /* Ensure it stays above other content */
+        }
+    </style>
+</head>
+<body>
+    <div class="head-bar">
+        Scan QR Code
+    </div>
+    <h1>Scan QR Code</h1>
+    <div class="container">
+        <h1>Scan QR Code</h1>
+        <div class="section">
+            <div id="my-qr-reader"></div>
+        </div>
+
+        <div class="form-container">
+            <form action="/home/Scannerqr" method="post">
+                <!-- Hidden field to store the scanned ID -->
+                <input type="hidden" id="scanned-id" name="ScannedId" />
+
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <input type="text" id="scan-date" name="DateScan" class="form-control" asp-for="DateScan">
+                </div>
+                <div class="form-group">
+                    <label for="timein">Time In</label>
+                    <input type="text" id="scan-time" name="TimeIn" class="form-control" asp-for="TimeIn">
+                </div>
+                <div class="form-group">
+                    <label for="present">Present</label>
+                    <input type="text" id="present" name="Present" class="form-control" asp-for="Present" > 
+                </div>
+                <div class="form-group">
+                    <label for="timeout">Time Out</label>
+                    <input type="text" id="scan-timeOut" name="TimeOut" class="form-control" asp-for="TimeOut">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit Record</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.4/html5-qrcode.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            function onScanSuccess(decodedText, decodedResult) {
+                alert('Successfully Scanned');
+                // Assume decodedText contains the ID from the QR code
+                let now = new Date();
+                let formattedTime = now.toLocaleString('en-US', { timeStyle: 'short' });
+
+                // Update form fields
+                document.getElementById("scanned-id").value = decodedText; // Set the scanned ID
+                document.getElementById("scan-time").value = formattedTime;
+                document.getElementById("scan-timeOut").value = formattedTime;
+                document.getElementById("scan-date").value = now.toLocaleDateString('en-US');
+                document.getElementById("present").value = "Yes";
+              
+                
+            }
+
+            let html5QrCodeScanner = new Html5QrcodeScanner(
+                "my-qr-reader",
+                { fps: 10, qrbox: 250 },
+                false
+            );
+            html5QrCodeScanner.render(onScanSuccess);
+        });
+    </script>
+</body>
+</html>

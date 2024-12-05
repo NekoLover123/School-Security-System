@@ -1,0 +1,152 @@
+﻿@model test_Data.Models.GenerateQRCodeViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+    string QRCodeImageUrl = Model != null ? Model.QRCodeImageUrl : "";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light background color */
+            font-family: Arial, sans-serif;
+            min-height: 100vh; /* Full height for centering */
+            margin: 0; /* Remove default margin */
+        }
+
+        .header {
+            backdrop-filter: blur(30px);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky; /* Make header sticky */
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            margin: 20px auto; /* Center container */
+            max-width: 800px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .btn-primary {
+            border-radius: 10px;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            font-size: 1rem;
+            width: 100%; /* Full width button */
+        }
+
+        .img-fluid {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .download-btn {
+            display: block;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+            .download-btn:hover {
+                background-color: #0056b3;
+            }
+
+        .feature {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #007bff;
+        }
+
+        .features-section {
+            background-color: #e9ecef;
+            padding: 40px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    
+    </div>
+
+    <div class="container">
+        <h1>SCAN QR-Code to record Attendance</h1>
+
+        <form asp-action="qrgen" method="post">
+            <div class="form-group">
+                <textarea id="sidTextArea" name="text" class="form-control mb-3" rows="5" placeholder="Enter text here"></textarea>
+
+                <button type="submit" class="btn btn-primary">Generate QR Code</button>
+            </div>
+        </form>
+
+        @if (!string.IsNullOrEmpty(QRCodeImageUrl))
+        {
+            <div class="text-center">
+                <img src="@QRCodeImageUrl" class="img-fluid mb-3" alt="Generated QR Code" />
+                <a href="@QRCodeImageUrl" class="download-btn" download="QRCode.png">Download QR Code</a>
+                <br />
+                <br />
+                <a href="@Url.Action("Admin", "Home")" class="btn btn-primary">Back to Admin</a>
+            </div>
+        }
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get the sID from localStorage
+            var selectedSID = localStorage.getItem('selectedSID');
+
+            // Set the sID into the textarea if it exists
+            if (selectedSID) {
+                document.getElementById('sidTextArea').value = selectedSID;
+
+                // Optionally, clear the stored value
+                localStorage.removeItem('selectedSID');
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,115 @@
+﻿@model test_Data.Models.ParentModel
+@{
+    ViewData["Title"] = "ParentView";
+    
+}
+@if (TempData["AlertMessage"] != null)
+{
+    <div class="alert alert-success">
+        <strong>Success!</strong> @TempData["AlertMessage"]
+    </div>
+}
+
+    <style>
+        body {
+            background-color: white;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            align-content: centre;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+
+            .form-control:focus {
+                border-color: #007bff;
+                box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            }
+
+        .btn-primary {
+            width: 600px;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 1rem;
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+            }
+
+        .table-dark {
+            margin-top: 20px;
+            background-color: rgba(0, 0, 0, 0.75);
+            color: white;
+        }
+
+            .table-dark th,
+            .table-dark td {
+                text-align: center;
+            }
+
+        .btn-outline-danger {
+            border: 1px solid #dc3545;
+            color: #dc3545;
+        }
+
+            .btn-outline-danger:hover {
+                background-color: #dc3545;
+                color: white;
+            }
+
+        label {
+            font-weight: bold;
+        }
+        #id{
+            width:0px;
+            height:0px;
+            padding:0px;
+        }
+
+    .View {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    </style>
+
+<body>
+    <div class="View">
+        <form action="/home/parentview2" method="post">
+            <div>
+                <input type="text" id="id" name="id" asp-for="acID" value="@ViewBag.FileContent3" readonly="readonly" />
+            </div>
+            <button type="submit" class="btn btn-primary">View Parent Record</button>
+
+        </form>
+        <form action="/home/parentview3" method="post">
+            <div>
+                <input type="text" id="id" name="sid" asp-for="sID" value="@ViewBag.FileContent5" readonly="readonly" />
+            </div>
+            <button type="submit" class="btn btn-primary">View Child Record</button>
+        </form>
+    </div>
+</body>

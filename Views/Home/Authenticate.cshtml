@@ -1,0 +1,97 @@
+﻿@model test_Data.Models.AccountModel
+@{
+    ViewData["Title"] = "Authenticate Page";
+    List<AccountModel> users = TempData["users"] as List<AccountModel>;
+}
+
+<style>
+    body {
+        background-color: white;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+
+
+    .container {
+        max-width: 500px;
+        margin: 0 auto;
+        padding-top: 50px;
+    }
+
+    .form-container {
+        display: flex; /* Enables Flexbox */
+        justify-content: center; /* Centers horizontally */
+        align-items: center; /* Centers vertically */
+    }
+
+    .AuthForm {
+        padding: 30px;
+        max-width: 500px;
+        background-color: #2189F0;
+        align-content: center;
+        border-radius: 15px;
+        border: 2px solid #000;
+        background-color: transparent;
+        backdrop-filter: blur(30px);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 100%; /* Make sure it adapts to smaller screens */
+        max-width: 500px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        border-radius: 10px;
+    }
+
+    .btn-block {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+    .form-container{
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+<body>
+    <div class="form-container">
+        
+        <form action="/Home/Login" method="post" class="AuthForm">
+            <h1>Please Log-In</h1>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Enter Username" class="form-control" asp-for="acUsername">
+                <span asp-validation-for="acUsername" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter Password" class="form-control" asp-for="acPassword">
+                <span asp-validation-for="acPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="position">Position:</label>
+                <select class="form-control" name="position" asp-for="acPosition">
+                    <option value="" disabled selected>Select your position</option>
+                    <option value="Parent">Parent</option>
+                    <option value="Teacher">Teacher</option>
+                    <option value="Admin">Admin</option>
+                </select>
+                <span asp-validation-for="acPosition" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">LOGIN</button>
+        </form>
+    </div>
+</body>

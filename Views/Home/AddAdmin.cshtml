@@ -1,0 +1,139 @@
+﻿@model test_Data.Models.AdminModel
+@{
+    ViewData["Title"] = "Admin";
+}
+
+
+<style>
+    body {
+        background-color: white;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .form-container {
+        max-width: 500px;
+        width: 100%;
+        padding: 30px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        margin-bottom: 30px;
+        margin-left: 200px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+    }
+
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+    .btn-primary {
+        width: 100%;
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 1rem;
+        background-color: #007bff;
+        border: none;
+        color: #fff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .btn-success {
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 1rem;
+        background-color: #28a745;
+        border: none;
+        color: #fff;
+    }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+    .btn-outline-danger {
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #dc3545;
+        color: #dc3545;
+        background-color: transparent;
+    }
+
+        .btn-outline-danger:hover {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+    .table-dark {
+        background-color: rgba(0, 0, 0, 0.75);
+        color: white;
+        margin-top: 20px;
+    }
+
+        .table-dark th,
+        .table-dark td {
+            text-align: center;
+        }
+
+        .table-dark th {
+            background-color: #343a40;
+            color: #fff;
+        }
+
+    label {
+        font-weight: bold;
+        font-size: 1rem;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    .text-danger {
+        font-size: 12px;
+        color: #dc3545;
+        margin-top: 5px;
+        display: block;
+    }
+</style>
+
+<body>
+    <div class="form-container">
+        <form action="/home/admin" method="post">
+
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" class="form-control" placeholder="Enter An Admin Name" asp-for="aName">
+                <span asp-validation-for="aName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="surname">Surname</label>
+                <input type="text" id="surname" class="form-control" placeholder="Enter An Admin Surname" asp-for="aSurname">
+                <span asp-validation-for="aSurname" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+        </form>
+    </div>
+</body>
